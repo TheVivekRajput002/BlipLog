@@ -1,11 +1,11 @@
 import type { NavItem } from '@/lib/types'
 
 interface SideNavbarProps {
-  navItems: NavItem[]
-  footerItems: NavItem[]
+  navItems?: NavItem[]
+  footerItems?: NavItem[]
 }
 
-function SideNavbar({ navItems, footerItems }: SideNavbarProps) {
+function SideNavbar({ navItems = [], footerItems = [] }: SideNavbarProps) {
   return (
     <aside className="hidden md:flex md:w-64 shrink-0 flex-col border-r border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-4">
       <div className="mb-6">

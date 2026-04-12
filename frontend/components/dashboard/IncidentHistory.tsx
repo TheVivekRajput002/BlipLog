@@ -1,91 +1,62 @@
-import Link from "next/link";
-import type { Incident, IncidentUpdate } from "@/lib/types";
+'use client'
 
-const updateStyles: Record<
-  IncidentUpdate["type"],
-  { wrapper: string; label: string }
-> = {
-  resolved: {
-    wrapper: "bg-surface-container-low p-4",
-    label: "Resolved",
-  },
-  monitoring: {
-    wrapper: "bg-surface-container-low p-4",
-    label: "Monitoring",
-  },
-  identified: {
-    wrapper: "p-4 border-l-2 border-outline",
-    label: "Identified",
-  },
-  investigating: {
-    wrapper: "p-4 border-l-2 border-outline",
-    label: "Investigating",
-  },
-  completed: {
-    wrapper: "bg-surface-container-low p-4",
-    label: "Completed",
-  },
-};
+import type { IncidentLegacy } from '@/lib/types'
+import { IncidentItem } from './IncidentItem'
 
-function IncidentItem({ incident }: { incident: Incident }) {
-  return (
-    <div className="relative pl-8 border-l border-outline">
-      <div className="absolute -left-[5px] top-0 w-2 h-2 bg-outline" />
-      <div className="mb-4">
-        <span className="font-mono text-[11px] text-on-surface-variant block mb-1">
-          {incident.date}
-        </span>
-        <h4 className="font-syne font-bold text-lg uppercase tracking-tight text-on-surface">
-          {incident.title}
-        </h4>
-      </div>
-      <div className="space-y-4">
-        {incident.updates.map((update, i) => {
-          const style = updateStyles[update.type];
-          return (
-            <div key={i} className={style.wrapper}>
-              <span className="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest block mb-2">
-                {style.label}
-              </span>
-              <p className="text-sm leading-relaxed text-on-surface/90">
-                {update.message}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+interface IncidentHistoryProps {
+  incidents: IncidentLegacy[]
+  onOpenIncident?: (id: string) => void
+  onLoadMore?: () => void
 }
 
-export default function IncidentHistory({
+export function IncidentHistory({
   incidents,
-}: {
-  incidents: Incident[];
-}) {
+  onOpenIncident,
+  onLoadMore,
+}: IncidentHistoryProps) {
   return (
-    <section>
-      <div className="flex justify-between items-center mb-8 border-b border-outline pb-4">
-        <h3 className="font-syne text-sm font-bold uppercase tracking-widest text-on-surface">
-          Past Incidents
-        </h3>
-        <Link
-          href="#"
-          className="font-mono text-[10px] text-on-surface-variant uppercase hover:text-white transition-colors"
-        >
-          Incident Archive
-        </Link>
-      </div>
-      <div className="space-y-10">
-        {incidents.map((incident) => (
-          <IncidentItem key={incident.id} incident={incident} />
-        ))}
-        <div className="py-12 text-center bg-surface border border-dashed border-outline">
-          <p className="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em]">
-            No further incidents reported in the last 30 days
-          </p>
+    <section className="px-8 pb-12">
+      <div className="bg-[var(--color-bg-surface)] p-8 border border-[var(--color-border-default)]">
+        {/* Section header */}
+        <div className="flex items-center gap-3 mb-8">
+          <span className="material-symbols-outlined text-[var(--color-text-tertiary)]">history</span>
+          <h3 className="font-display font-bold uppercase tracking-widest text-sm text-[var(--color-text-primary)]">
+            Incident History
+          </h3>
+        </div>
+
+        {/* Incident list */}
+        {incidents.length > 0 ? (
+          <div className="space-y-4">
+            {incidents.map((incident) => (
+              <IncidentItem
+                key={incident.id}
+                incident={incident}
+                onOpen={onOpenIncident}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="py-16 text-center">
+            <span className="material-symbols-outlined text-4xl text-[var(--color-text-tertiary)] mb-3 block">
+              check_circle
+            </span>
+            <p className="font-mono text-xs text-[var(--color-text-tertiary)] uppercase tracking-widest">
+              No incidents recorded
+            </p>
+          </div>
+        )}
+
+        {/* Load more */}
+        <div className="mt-12 text-center">
+          <button
+            onClick={onLoadMore}
+            className="font-display font-bold uppercase border border-[var(--color-border-default)] px-10 py-3 text-xs tracking-widest hover:bg-[var(--color-bg-elevated)] transition-colors text-[var(--color-text-primary)]"
+          >
+            Load Archive Logs
+          </button>
         </div>
       </div>
     </section>
-  );
+  )
 }

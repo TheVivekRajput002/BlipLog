@@ -3,7 +3,7 @@ import {
   UptimePersistence,
   PerformanceGrid,
   IncidentHistory,
-} from '@/components/monitors'
+} from '@/components/dashboard'
 
 import {
   MOCK_MONITOR,
@@ -21,16 +21,7 @@ import {
 export default function MonitorDetailPage() {
   return (
     <>
-      <MonitorHeader monitor={MOCK_MONITOR} />
-
-      <UptimePersistence monitor={MOCK_MONITOR} />
-
-      <PerformanceGrid
-        latencyData={MOCK_LATENCY_DATA}
-        checkLog={MOCK_CHECK_LOG}
-      />
-
-      <IncidentHistory incidents={MOCK_INCIDENTS} />
+hello
     </>
   )
 }
