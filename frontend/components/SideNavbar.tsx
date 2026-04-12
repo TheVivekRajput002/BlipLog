@@ -1,3 +1,7 @@
+ 'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import type { NavItem } from '@/lib/types'
 
 interface SideNavbarProps {
@@ -6,6 +10,8 @@ interface SideNavbarProps {
 }
 
 function SideNavbar({ navItems = [], footerItems = [] }: SideNavbarProps) {
+  const pathname = usePathname()
+
   return (
     <aside className="hidden md:flex md:w-64 shrink-0 flex-col border-r border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-4">
       <div className="mb-6">
@@ -16,32 +22,32 @@ function SideNavbar({ navItems = [], footerItems = [] }: SideNavbarProps) {
 
       <nav className="flex-1 space-y-1">
         {navItems.map((item) => (
-          <a
+          <Link
             key={item.label}
             href={item.href}
             className={[
               'flex items-center gap-3 rounded px-3 py-2 text-sm transition-colors',
-              item.active
+              pathname === item.href || pathname.startsWith(`${item.href}/`)
                 ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
                 : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]',
             ].join(' ')}
           >
             <span className="material-symbols-outlined text-base">{item.icon}</span>
             <span>{item.label}</span>
-          </a>
+          </Link>
         ))}
       </nav>
 
       <div className="mt-4 space-y-1 border-t border-[var(--color-border-subtle)] pt-4">
         {footerItems.map((item) => (
-          <a
+          <Link
             key={item.label}
             href={item.href}
             className="flex items-center gap-3 rounded px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)] transition-colors"
           >
             <span className="material-symbols-outlined text-base">{item.icon}</span>
             <span>{item.label}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </aside>

@@ -1,81 +1,56 @@
-import type { LogEntry, InfraMetric } from "@/lib/data";
+'use client'
 
-const LOG_LEVEL_COLOR: Record<LogEntry["level"], string> = {
-  INFO: "text-green-500/60",
-  ERROR: "text-red-500/60",
-  WARN: "text-neutral-500",
-};
-
-interface Props {
-  logs: LogEntry[];
-  metrics: InfraMetric[];
-}
-
-export default function SystemPanel({ logs, metrics }: Props) {
+export default function SystemPanel() {
   return (
-    <section className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* System Logs */}
-      <div className="lg:col-span-2 bg-surface-container-lowest p-8 border border-white/5">
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="font-headline font-bold uppercase tracking-widest text-sm">
-            System Logs
-          </h3>
-          <span className="font-mono text-[10px] text-neutral-500">
-            STREAMING_LIVE
-          </span>
-        </div>
-
-        <div className="space-y-4 font-mono text-[11px] h-64 overflow-y-auto no-scrollbar">
-          {logs.map((entry, i) => (
-            <div key={i} className="flex gap-4">
-              <span className="text-neutral-600 shrink-0">
-                [{entry.timestamp}]
-              </span>
-              <span className={`shrink-0 ${LOG_LEVEL_COLOR[entry.level]}`}>
-                {entry.level}
-              </span>
-              <span className="text-white">{entry.message}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Infra Health */}
-      <div className="bg-surface-container p-8 border border-white/5 relative overflow-hidden group">
-        {/* Decorative bg icon */}
-        <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-          <span className="material-symbols-outlined text-8xl">cloud_queue</span>
-        </div>
-
-        <h3 className="font-headline font-bold uppercase tracking-widest text-sm mb-6">
-          Infra Health
+      <div className="bg-surface border border-outline p-6">
+        <h3 className="font-headline font-bold text-on-surface uppercase tracking-widest mb-4">
+          System Logs
         </h3>
-
-        <div className="space-y-6">
-          {metrics.map((metric) => (
-            <div key={metric.label}>
-              <div className="flex justify-between mb-2">
-                <span className="font-mono text-[10px] text-neutral-400">
-                  {metric.label}
-                </span>
-                <span className="font-mono text-[10px] text-white">
-                  {metric.value}%
-                </span>
-              </div>
-              <div className="h-1 bg-surface-container-high w-full">
-                <div
-                  className="h-full bg-primary"
-                  style={{ width: `${metric.value}%` }}
-                />
-              </div>
-            </div>
-          ))}
+        <div className="space-y-2 font-mono text-sm text-on-surface-variant">
+          <p>[2024-04-12 14:32] API health check passed</p>
+          <p>[2024-04-12 14:22] Database query optimized</p>
+          <p>[2024-04-12 14:12] Cache invalidated</p>
+          <p className="text-on-surface-variant/50">[View all logs →]</p>
         </div>
-
-        <button className="mt-8 w-full border border-neutral-700 py-3 font-mono text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-          View Detailed Metrics
-        </button>
       </div>
-    </section>
-  );
+
+      {/* Infrastructure Metrics */}
+      <div className="bg-surface border border-outline p-6">
+        <h3 className="font-headline font-bold text-on-surface uppercase tracking-widest mb-4">
+          Infrastructure
+        </h3>
+        <div className="space-y-3">
+          <div>
+            <div className="flex justify-between mb-1 text-sm">
+              <span className="font-mono text-on-surface-variant">CPU Usage</span>
+              <span className="font-mono font-bold">35%</span>
+            </div>
+            <div className="w-full bg-outline h-1 rounded-full overflow-hidden">
+              <div className="bg-warning h-full" style={{ width: '35%' }} />
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between mb-1 text-sm">
+              <span className="font-mono text-on-surface-variant">Memory</span>
+              <span className="font-mono font-bold">62%</span>
+            </div>
+            <div className="w-full bg-outline h-1 rounded-full overflow-hidden">
+              <div className="bg-warning h-full" style={{ width: '62%' }} />
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between mb-1 text-sm">
+              <span className="font-mono text-on-surface-variant">Disk</span>
+              <span className="font-mono font-bold">45%</span>
+            </div>
+            <div className="w-full bg-outline h-1 rounded-full overflow-hidden">
+              <div className="bg-success h-full" style={{ width: '45%' }} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }

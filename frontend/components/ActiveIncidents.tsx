@@ -1,1 +1,1 @@
-export { default } from './incidents/ActiveIncidents'
+export { default } from './monitor/ActiveIncidents'

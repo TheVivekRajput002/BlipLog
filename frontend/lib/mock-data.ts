@@ -12,10 +12,10 @@ import type {
 // ─── Navigation ───────────────────────────────────────────────────────────────
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Dashboard', icon: 'dashboard',  href: '#' },
-  { label: 'Monitors',  icon: 'analytics',  href: '#', active: true },
-  { label: 'Incidents', icon: 'emergency',  href: '#' },
-  { label: 'Settings',  icon: 'settings',   href: '#' },
+  { label: 'Dashboard', icon: 'dashboard', href: '/dashboard' },
+  { label: 'Monitors', icon: 'analytics', href: '/monitor', active: true },
+  { label: 'Incidents', icon: 'emergency', href: '/incident' },
+  { label: 'Settings', icon: 'settings', href: '/settings' },
 ]
 
 export const NAV_FOOTER_ITEMS: NavItem[] = [

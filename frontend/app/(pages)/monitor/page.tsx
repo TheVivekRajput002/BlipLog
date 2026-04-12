@@ -1,7 +1,7 @@
-import ActiveIncidents from "@/components/incidents/ActiveIncidents";
-import StatsStrip from "@/components/incidents/StatsStrips";
-import MonitorCard from "@/components/incidents/MonitorCard";
-import SystemPanel from "@/components/incidents/SystemPanel";
+import ActiveIncidents from "@/components/monitor/ActiveIncidents";
+import StatsStrip from "@/components/monitor/StatsStrips";
+import MonitorCard from "@/components/monitor/MonitorCard";
+import SystemPanel from "@/components/monitor/SystemPanel";
 import {
   MONITORS,
   ACTIVE_INCIDENTS,
