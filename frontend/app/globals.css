@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --color-bg-base:        #0a0a0b;   /* App background — near-black */
+  --color-bg-surface:     #111113;   /* Cards, panels */
+  --color-bg-elevated:    #1a1a1e;   /* Modals, dropdowns, hover states */
+  --color-bg-subtle:      #222226;   /* Input fields, code blocks */
+
+  /* Borders */
+  --color-border-default: #2a2a30;   /* Standard border */
+  --color-border-subtle:  #1e1e23;   /* Dividers, very faint separation */
+  --color-border-strong:  #3a3a45;   /* Focused inputs, highlighted rows */
+
+  /* Text */
+  --color-text-primary:   #f0f0f2;   /* Headlines, primary labels */
+  --color-text-secondary: #8a8a96;   /* Subtext, timestamps, captions */
+  --color-text-tertiary:  #55555f;   /* Placeholder text, disabled */
+  --color-text-inverse:   #0a0a0b;   /* Text on light/colored backgrounds */
+
+  /* Status — the only real color in the system */
+  --color-status-up:        #22c55e;   /* Green — operational */
+  --color-status-up-dim:    #166534;   /* Green background tint */
+  --color-status-down:      #ef4444;   /* Red — outage */
+  --color-status-down-dim:  #7f1d1d;   /* Red background tint */
+  --color-status-degraded:  #f59e0b;   /* Amber — degraded */
+  --color-status-degraded-dim: #78350f; /* Amber background tint */
+  --color-status-unknown:   #6b7280;   /* Grey — no data */
+
+  /* Incident state badge colors */
+  --color-state-investigating: #f59e0b;
+  --color-state-identified:    #3b82f6;
+  --color-state-monitoring:    #8b5cf6;
+  --color-state-resolved:      #22c55e;
+
+  /* Interactive */
+  --color-accent:         #e0e0e8;   /* Primary action color — bright white-grey */
+  --color-accent-hover:   #ffffff;   /* Hover on primary actions */
+  --color-focus-ring:     #5a5aff;   /* Keyboard focus ring — subtle blue */
+
+  /* Public status page overrides (light mode) */
+  --color-public-bg:         #fafafa;
+  --color-public-surface:    #ffffff;
+  --color-public-border:     #e5e7eb;
+  --color-public-text:       #111827;
+  --color-public-text-sub:   #6b7280;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  /* Display / Headings */
+  --font-display: 'Syne', sans-serif;
+
+  /* Body */
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Monospace — used for IDs, URLs, timestamps, response times, uptime % */
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Scale */
+  --text-xs:   0.75rem;    /* 12px — timestamps, badges, captions */
+  --text-sm:   0.875rem;   /* 14px — secondary labels, table rows */
+  --text-base: 1rem;       /* 16px — body text */
+  --text-lg:   1.125rem;   /* 18px — section headers */
+  --text-xl:   1.25rem;    /* 20px — card titles */
+  --text-2xl:  1.5rem;     /* 24px — page titles */
+  --text-3xl:  1.875rem;   /* 30px — dashboard hero stat */
+  --text-4xl:  2.25rem;    /* 36px — public status page headline */
+
+  /* Weight */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-bold:    700;
+
+  /* Line height */
+  --leading-tight:  1.2;
+  --leading-normal: 1.5;
+  --leading-loose:  1.75;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.05em;
+  --tracking-widest:  0.1em;  /* used for labels, badge text */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --space-1:   0.25rem;   /* 4px */
+  --space-2:   0.5rem;    /* 8px */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.25rem;   /* 20px */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-10:  2.5rem;    /* 40px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+  --space-20:  5rem;      /* 80px */
+  --space-24:  6rem;      /* 96px */
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+:root {
+  --radius-sm:   4px;     /* Badges, chips */
+  --radius-md:   8px;     /* Cards, inputs */
+  --radius-lg:   12px;    /* Modals, large panels */
+  --radius-xl:   16px;    /* Public status page cards */
+  --radius-full: 9999px;  /* Pills, status dots */
 }
+
+:root {
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.6);
+  --shadow-glow-up:       0 0 12px rgba(34,197,94,0.2);   /* Green glow for "up" status */
+  --shadow-glow-down:     0 0 12px rgba(239,68,68,0.3);   /* Red glow for "down" status */
+  --shadow-glow-degraded: 0 0 12px rgba(245,158,11,0.2);
+}
+
+
+.status-dot--up        { background: var(--color-status-up); }
+.status-dot--down      { background: var(--color-status-down); }
+.status-dot--degraded  { background: var(--color-status-degraded); }
+.status-dot--unknown   { background: var(--color-status-unknown); }
+
+
+@keyframes pulse-ring {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.5); }
+}
+
+
+.status-badge--up         { background: var(--color-status-up-dim); color: var(--color-status-up); }
+.status-badge--down       { background: var(--color-status-down-dim); color: var(--color-status-down); }
+.status-badge--degraded   { background: var(--color-status-degraded-dim); color: var(--color-status-degraded); }
+.status-badge--investigating { background: rgba(245,158,11,0.1); color: var(--color-state-investigating); }
+.status-badge--identified    { background: rgba(59,130,246,0.1); color: var(--color-state-identified); }
+.status-badge--monitoring    { background: rgba(139,92,246,0.1); color: var(--color-state-monitoring); }
+.status-badge--resolved      { background: rgba(34,197,94,0.1);  color: var(--color-state-resolved); }
+
+
+
