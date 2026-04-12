@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import type { NavItem } from '@/lib/types'
+import type { NavItem } from '@/lib/types.ts'
 
 interface SideNavbarProps {
   navItems?: NavItem[]
@@ -13,7 +13,9 @@ function SideNavbar({ navItems = [], footerItems = [] }: SideNavbarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="hidden md:flex md:w-64 shrink-0 flex-col border-r border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-4">
+    <div className='h-screen md:sticky top-0'>
+
+    <aside className="h-screen hidden md:flex md:w-64 shrink-0 flex-col border-r border-[var(--color-border-default)] bg-[var(--color-bg-surface)] p-4">
       <div className="mb-6">
         <h2 className="font-display text-lg font-bold uppercase tracking-widest text-[var(--color-text-primary)]">
           BlipLog
@@ -51,6 +53,7 @@ function SideNavbar({ navItems = [], footerItems = [] }: SideNavbarProps) {
         ))}
       </div>
     </aside>
+    </div>
   )
 }
 

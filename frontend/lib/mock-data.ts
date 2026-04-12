@@ -7,19 +7,18 @@ import type {
   IncidentLegacy,
   UptimeBar,
   NavItem,
-} from './types'
+} from './types.ts'
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Dashboard', icon: 'dashboard', href: '/dashboard' },
   { label: 'Monitors', icon: 'analytics', href: '/monitor', active: true },
-  { label: 'Incidents', icon: 'emergency', href: '/incident' },
   { label: 'Settings', icon: 'settings', href: '/settings' },
 ]
 
 export const NAV_FOOTER_ITEMS: NavItem[] = [
-  { label: 'Documentation', icon: 'description', href: '#' },
+  { label: 'Profile', icon: 'person', href: '/profile' },
   { label: 'Logout',        icon: 'logout',       href: '#' },
 ]
 
