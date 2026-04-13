@@ -1,9 +1,5 @@
-import React from 'react'
+import ProfileUi from '@/components/profile/ProfileUi'
 
-function Profile() {
-  return (
-    <div>Profile</div>
-  )
+export default function ProfilePage() {
+  return <ProfileUi />
 }
-
-export default Profile
