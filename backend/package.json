@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build step required\"",
     "dev": "nodemon src/index.js",
-    "worker":"nodemon src/worker/engine.js",
-    "start": "node src/index.js",
+    "worker": "nodemon src/worker/engine.js",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.30.2",
+  "packageManager": "pnpm@9.15.4",
   "dependencies": {
     "@apollo/server": "^5.5.0",
     "axios": "^1.15.0",
