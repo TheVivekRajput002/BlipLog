@@ -1,6 +1,7 @@
 const session = require('express-session');
 const PgSession = require('connect-pg-simple')(session);
 const pool = require('../db/client');
+const config = require("../config/config")
 
 const sessionConfig = {
     store: new PgSession({
@@ -9,7 +10,7 @@ const sessionConfig = {
         createTableIfMissing: true,
     }),
 
-    secret: process.env.SESSION_SECRET, // long random string in .env
+    secret: config.SESSION_SECRET, // long random string in .env
 
     resave: false,              // dont re-save if session unchanged
     saveUninitialized: false,   // dont save empty sessions

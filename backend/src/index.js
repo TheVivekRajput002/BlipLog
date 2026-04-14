@@ -8,7 +8,14 @@ const authRouter = require("./routes/auth.route")
 const monitorRouter = require("./routes/monitor.route")
 const publicRouter = require("./routes/public.route")
 const incidentRouter = require("./routes/incident.route")
-const { createApolloServer } = require('./graphql');
+
+let createApolloServer = null;
+try {
+    ({ createApolloServer } = require("./graphql"));
+} catch (error) {
+    // Allow API boot without GraphQL when the module is missing in deploy.
+    console.warn("GraphQL module not found, skipping /graphql setup.");
+}
 
 const app = express()
 
@@ -32,9 +39,11 @@ app.use("/incident", incidentRouter)
 app.use("/public", publicRouter)
 
 async function start() {
-    const { apolloServer, apolloMiddleware } = await createApolloServer();
-    app.use("/graphql", apolloMiddleware)
-    await apolloServer.start()
+    if (createApolloServer) {
+        const { apolloServer, apolloMiddleware } = await createApolloServer();
+        app.use("/graphql", apolloMiddleware)
+        await apolloServer.start()
+    }
 
     app.listen(config.PORT, () =>
         console.log(`BlipLog API running on port ${ config.PORT || 4000 }`)
